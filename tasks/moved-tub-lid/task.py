@@ -67,7 +67,8 @@ PAD_H = 0.003
 
 BED = Box("stage_bed", pos=(0.36, -0.11, TOP + BED_H / 2), size=(0.12, 0.26, BED_H), color=DARK)  # fixed
 PAD = Box("switch_pad", pos=(*LID_XY, TOP + PAD_H / 2), size=(0.18, 0.18, PAD_H), color=DARK)      # fixed
-TUB = part("tub", pos=(*TUB_START, TOP), mass=1.5, boxes=TUB_BOXES, color=WHITE, friction=0.6)
+TUB = part("tub", pos=(*map(float, TUB_START), TOP),  # plain floats: Isaac Lab rejects float64 poses
+           mass=1.5, boxes=TUB_BOXES, color=WHITE, friction=0.6)
 # part() needs at least one box: a 10 x 10 cm square inside the disc (half-diagonal 7.1 cm < 8.5 cm), same thickness.
 LID = part("lid", pos=(*LID_XY, TOP + PAD_H), mass=0.080,
            boxes=[((0.0, 0.0, LID_T / 2), (0.10, 0.10, LID_T), BLUE)], cylinders=LID_CYLS, color=BLUE, friction=0.8)
