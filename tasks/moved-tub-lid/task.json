@@ -15,6 +15,6 @@
   "run_limit": "1,200 steps (1 minute at 20 Hz)",
   "reset_notes": "Return the stage to its start (tub centre at x 36, y -14) and lay the lid flat, centred on the switch pad, knob up, before re-arming the stage.",
   "fidelity": "Rigid bodies; 240 Hz physics, 20 Hz control. The stage is modelled by setting the tub's pose and velocity every control step along the smooth 8 cm, 1 s profile; during the move the tub is held upright and the stage does not stall against contact (a real stage should be current-limited). The trigger is the lid's height above its pad. No contact-force cap is enforced.",
-  "scores": "Dream-1 run: TBD; demo: TBD",
+  "scores": "Dream-1 run: 0.0 (it reached the lid and pushed it about on its pad but never lifted it, so the stage never moved); demo: 1.0",
   "media": ""
 }

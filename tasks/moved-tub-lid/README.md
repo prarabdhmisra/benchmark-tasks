@@ -73,7 +73,7 @@ This is the specific failure the task is built to expose: acting on stale percep
 
 ## Runtime and seeds
 
-The scripted demo finishes in about 12 s of simulated time and then holds the success for 1 s. A full Dream-1 trial is
+The scripted demo reaches success in 228 steps (11.4 s of simulated time, including the 1 s hold). A full Dream-1 trial is
 1,200 steps (1 minute at 20 Hz), plus Isaac Sim start-up. The layout is fixed (`-E object_jitter=0`); there are no seeds
 to choose.
 
