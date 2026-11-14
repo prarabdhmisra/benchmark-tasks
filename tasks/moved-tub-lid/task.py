@@ -186,7 +186,7 @@ PLACE_Z = TOP + RIM_Z + 0.004 + GRIP_ABOVE_UNDERSIDE   # let go 4 mm over the ri
 
 def demo():
     """Right arm only. Grip the knob from above, lift (which starts the stage), wait at carry height until the tub has
-    stopped, carry the lid over the tub's new centre, lower it to 4 mm over the rim, let go and rise."""
+    stopped, carry the lid over the tub's new centre, lower it to 4 mm over the rim, let go, rise and move back."""
     lx, ly = LID_XY
     tx, ty = TUB_END
     right = [
@@ -199,6 +199,7 @@ def demo():
         Waypoint(2.0, (tx, ty, CARRY_Z), FINGER_CLOSED, "over the tub's new centre"),
         Waypoint(1.5, (tx, ty, PLACE_Z), FINGER_CLOSED, "lower onto the rim"),
         Waypoint(0.6, (tx, ty, PLACE_Z), FINGER_OPEN, "let go"),
-        Waypoint(1.0, (tx, ty, PLACE_Z + 0.06), FINGER_OPEN, "rise"),
+        Waypoint(1.0, (tx, ty, PLACE_Z + 0.03), FINGER_OPEN, "rise off the knob"),
+        Waypoint(1.5, (lx + 0.02, ty - 0.16, CARRY_Z), FINGER_OPEN, "back clear of the tub"),  # 6 cm up at the tub is out of reach
     ]
     return {"right": right}

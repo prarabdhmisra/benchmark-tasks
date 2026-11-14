@@ -48,7 +48,7 @@ python -m pytest -q test_task.py
 
 Right arm only. It grips the knob from above (fingertips 8 mm over the lid), lifts the lid, which starts the stage,
 and waits at carry height until the tub has stopped. Then it carries the lid over the tub's new centre, lowers it to
-4 mm over the rim, lets go and rises. The demo knows where the stage stops, as a teleoperator watching the scene would;
+4 mm over the rim, lets go, rises 3 cm and moves back toward its base. The demo knows where the stage stops, as a teleoperator watching the scene would;
 it only shows that a full score fits in the run limit.
 
 ## Scoring
