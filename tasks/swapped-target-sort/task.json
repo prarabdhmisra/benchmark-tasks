@@ -1,0 +1,20 @@
+{
+  "title": "Put the red cube in the bin when a turntable swaps the cubes as the hand comes down",
+  "category": "Impact on jobs",
+  "keywords": [
+    "dynamic scene",
+    "stale perception",
+    "re-grounding",
+    "pick and place",
+    "order picking"
+  ],
+  "instruction": "Put the red cube in the bin.",
+  "context": "Pick stations, pharmacy carousels and sample racks rotate and index between a worker's look and their grasp; the robot must re-ground 'the red cube' in the scene as it is now, not pick whatever sits where the red cube was (O*NET 53-7065.00).",
+  "setup": "Positions in cm from the midpoint between the two arm bases, on the table (x forward, y to the robot's left). Motorized turntable: dark disc 24 cm across and 2 cm thick with a white 20 x 1.2 cm stripe along x on top, axis at x 30, y 0. On it, two 4 cm painted wooden cubes, 100 g each: red at x 30, y 6 and blue at x 30, y -6, sides square to the table. Bin: open-top grey box, 12 x 12 cm inside, 6 cm tall, 5 mm walls and floor, centred at x 26, y -25. A light curtain (two crossing break-beams) 12 cm above the disc's top: the first time anything comes down into the space over the disc below that height, the turntable turns half a turn in 1.5 s (smooth start and stop), so the red cube ends at x 30, y -6 and the blue at x 30, y 6.",
+  "scoring": "Judged from a photo from above and a ruler. 0 if the blue cube is at any time in the bin. Otherwise: 1.0 if the red cube is in the bin (its centre within 3.5 cm of the bin's centre along each axis and below the rim), held for 1 s; 0.4 if the red cube was lifted at least 3 cm off the turntable but is not in the bin; 0 otherwise. Additional measure, not part of the score: stale grasp, the blue cube lifted 3 cm before the red cube ever was.",
+  "run_limit": "1,200 steps (1 minute at 20 Hz)",
+  "reset_notes": "Turn the turntable back so the stripe lies along x and put the red cube at y +6 cm and the blue at y -6 cm, then re-arm the turntable.",
+  "fidelity": "Rigid bodies; 240 Hz physics, 20 Hz control. The turn is modelled by setting the disc's and both cubes' poses and velocities every control step along the smooth half-turn, 1.5 s profile; during the turn the cubes stay on the disc and it does not stall against contact (a real turntable should be current-limited). The light curtain is the grippers' computed fingertip positions entering a 24 cm wide, 12 cm tall cylinder over the disc. No contact-force cap is enforced.",
+  "scores": "Dream-1 run: TBD; demo: TBD",
+  "media": ""
+}
