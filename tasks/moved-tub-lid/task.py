@@ -17,7 +17,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 import numpy as np  # noqa: E402
-from partkit import PartState, on_reset, on_step, part, write_pose  # noqa: E402
+from partkit import PartState, on_reset, on_step, part  # noqa: E402
 from yam_arena.constants import FINGER_CLOSED, FINGER_OPEN, PAD_TIP_PAST_TCP  # noqa: E402
 from yam_arena.demo import Waypoint  # noqa: E402
 from yam_arena.task_file import TABLE_TOP, Box  # noqa: E402
@@ -126,8 +126,23 @@ def _drive_stage(environment) -> None:
     if s is None or _STATE["step"] - _STATE["trigger_step"] > SLIDE_STEPS:
         return
     speed = 6 * s * (1 - s) / SLIDE_S  # d(smoothstep)/dt
-    write_pose(environment, "tub", (*(TUB_START + _smoothstep(s) * SLIDE), TOP), (0.0, 0.0, 0.0, 1.0),
-               lin_vel=(*(SLIDE * speed), 0.0))
+    _write_tub(environment, (*(TUB_START + _smoothstep(s) * SLIDE), TOP), (*(SLIDE * speed), 0.0))
+
+
+def _write_tub(environment, pos, lin_vel) -> None:
+    """Set the tub's body pose (upright) and velocity, as float32: partkit.write_pose keeps the env origin's dtype,
+    and this Isaac Lab's Warp-backed writers reject float64."""
+    import torch
+
+    base = environment.unwrapped
+    asset = base.scene["tub"]
+    origin = getattr(base.scene.env_origins, "torch", base.scene.env_origins)[0]
+    origin = torch.as_tensor(origin).to(torch.float32)
+    pose = torch.tensor([[*pos, 0.0, 0.0, 0.0, 1.0]], dtype=torch.float32, device=origin.device)
+    pose[:, :3] += origin
+    asset.write_root_pose_to_sim_index(root_pose=pose)
+    vel = torch.tensor([[*lin_vel, 0.0, 0.0, 0.0]], dtype=torch.float32, device=origin.device)
+    asset.write_root_velocity_to_sim_index(root_velocity=vel)
 
 
 def lid_on_tub(tub: PartState, lid: PartState):
