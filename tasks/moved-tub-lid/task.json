@@ -1,0 +1,20 @@
+{
+  "title": "Put a lid on a tub that slides away once the lid is picked up",
+  "category": "Impact on jobs",
+  "keywords": [
+    "dynamic scene",
+    "stale perception",
+    "re-targeting",
+    "lidding",
+    "packing"
+  ],
+  "instruction": "Put the blue lid on the white tub.",
+  "context": "On packing and capping lines and lab benches, containers move after a worker has started a motion (a conveyor indexes, a person nudges a tub aside); the robot must notice the move and re-target, not lower the lid where the tub used to be (O*NET 51-9111.00).",
+  "setup": "Positions in cm from the midpoint between the two arm bases, on the table (x forward, y to the robot's left). Motorized linear stage: dark bed 12 x 26 x 1 cm (x by y), centred at x 36, y -11, travel along y. On its carriage: a grey 14 x 14 x 1 cm plate carrying an open white PLA tub, 10 x 10 cm outside, 7 cm tall (rim 9 cm above the table), 4 mm walls and floor; tub with carriage 1.5 kg, centred at x 36, y -14. Switch pad: dark membrane switch 18 x 18 x 0.3 cm centred at x 24, y -34. Lid: blue PLA disc 17 cm across and 6 mm thick with a 2.5 cm diameter, 4.5 cm tall knob at its centre, 80 g, lying flat on the pad, centred on it. When the lid's weight leaves the pad (in simulation, its underside 1 cm above the pad), the stage moves the tub 8 cm toward the robot's left in 1 s (smooth start and stop, peak 12 cm/s) to x 36, y -6, and holds it there.",
+  "scoring": "Measured with a ruler, a spirit level and a photo from above. 0 if the tub was at any time tilted more than 10 degrees or pushed more than 2 cm from where it stood (its start before the move, its stop after it; the stage's own move does not count). Otherwise: 1.0 if, after the move, the lid rests on the tub's rim (underside 3 mm below to 5 mm above the rim), tilted under 5 degrees, with its centre within 1.5 cm of the tub's centre seen from above, held for 1 s; 0.5 if the lid rests on or just over the tub otherwise (centre within 5 cm of the tub's centre, underside 1 cm below to 2 cm above the rim); 0.2 if the lid was lifted off its pad but is not on the tub; 0 if the lid was never lifted. Additional measure, not part of the score: stale placement, the lid ending on the stage bed or table with its centre within 6 cm of where the tub stood before the move.",
+  "run_limit": "1,200 steps (1 minute at 20 Hz)",
+  "reset_notes": "Return the stage to its start (tub centre at x 36, y -14) and lay the lid flat, centred on the switch pad, knob up, before re-arming the stage.",
+  "fidelity": "Rigid bodies; 240 Hz physics, 20 Hz control. The stage is modelled by setting the tub's pose and velocity every control step along the smooth 8 cm, 1 s profile; during the move the tub is held upright and the stage does not stall against contact (a real stage should be current-limited). The trigger is the lid's height above its pad. No contact-force cap is enforced.",
+  "scores": "Dream-1 run: TBD; demo: TBD",
+  "media": ""
+}
